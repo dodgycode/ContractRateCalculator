@@ -10,6 +10,6 @@ namespace Calculation.Expenses
     public class Pension : ItemRecord
     {
 
-        public decimal TotalPensionContribution { get; set; }
+        public override decimal Amount { get; set; }
     }
 }

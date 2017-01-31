@@ -1,4 +1,5 @@
-﻿using Calculation.BaseClasses;
+﻿using System;
+using Calculation.BaseClasses;
 
 namespace Calculation.Taxes
 {
@@ -15,65 +16,16 @@ namespace Calculation.Taxes
         private const decimal AdditionalRate = 0.45M;
 
         private const int PersonalAllowance = 11000;
-        
+
         #endregion
 
-        #region Properties
-        public override decimal Amount
-        {
-            get
-            {
-                return  BasicRateTax + HigherRateTax + AdditionalRateTax;
-            }
-        }
+        #region Private Properties
 
-        private decimal BasicRateTax
-        {
-            get
-            {
-                var tax = Salary > AvailableAllowance ?
-                  Salary - AvailableAllowance : 0;
+        private decimal BasicRateTax { get; set; }
 
-                tax = tax > HigherRateAmount ?
-                    HigherRateAmount : tax; 
+        private decimal HigherRateTax { get; set; }
 
-                tax = tax > 0 ?
-                 tax * BasicRate : 0;
-
-                return tax;
-            }
-        }
-
-        private decimal HigherRateTax
-        {
-            get
-            {
-                var tax = Salary > HigherRateAmount ?
-                  Salary - HigherRateAmount : 0;
-
-                tax = tax > AdditionalRate ?
-                    AdditionalRate : tax;
-
-                tax = tax > 0 ?
-                 tax * HigherRate : 0;
-
-                return tax;
-            }
-        }
-
-        private decimal AdditionalRateTax
-        {
-            get
-            {
-                var tax = Salary > AdditionalRateAmount ?
-                  Salary - AdditionalRateAmount : 0;
-
-                tax = tax > 0 ?
-                 tax * AdditionalRate : 0;
-
-                return tax;
-            }
-        }
+        private decimal AdditionalRateTax { get; set; }
 
         private decimal AvailableAllowance
         {
@@ -87,9 +39,33 @@ namespace Calculation.Taxes
             }
         }
 
-        private decimal GrossDividends { get; set; }
+        private decimal _grossDividends;
+        private decimal GrossDividends
+        {
+            get
+            {
+                return _grossDividends;
+            }
+            set
+            {
+                _grossDividends = value;
+                CalculateIncomeTax();
+            }
+        }
 
-        private decimal Salary { get; set; }
+        private decimal _salary;
+        private decimal Salary
+        {
+            get
+            {
+                return _salary;
+            }
+            set
+            {
+                _salary = value;
+                CalculateIncomeTax();
+            }
+        }
         #endregion
 
         #region Public methods
@@ -103,5 +79,57 @@ namespace Calculation.Taxes
             GrossDividends = revenue;
         }
         #endregion
+
+        private void CalculateIncomeTax()
+        {
+            CalculateBasicRateTax();
+            CalculateHigherRateTax();
+            CalculateAdditionalRateTax();
+            CalculateTotalTax();
+        }
+
+        private void CalculateTotalTax()
+        {
+            Amount = BasicRateTax + HigherRateTax + AdditionalRateTax;
+        }
+
+        private void CalculateAdditionalRateTax()
+        {
+            var tax = Salary > AdditionalRateAmount ?
+                   Salary - AdditionalRateAmount : 0;
+
+            tax = tax > 0 ?
+             tax * AdditionalRate : 0;
+
+            AdditionalRateTax = tax;
+        }
+
+        private void CalculateHigherRateTax()
+        {
+            var tax = Salary > HigherRateAmount ?
+                  Salary - HigherRateAmount : 0;
+
+            tax = tax > AdditionalRate ?
+                AdditionalRate : tax;
+
+            tax = tax > 0 ?
+             tax * HigherRate : 0;
+
+            HigherRateTax = tax;
+        }
+
+        private void CalculateBasicRateTax()
+        {
+            var tax = Salary > AvailableAllowance ?
+                   Salary - AvailableAllowance : 0;
+
+            tax = tax > HigherRateAmount ?
+                HigherRateAmount : tax;
+
+            tax = tax > 0 ?
+             tax * BasicRate : 0;
+
+            BasicRateTax = tax;
+        }
     }
 }

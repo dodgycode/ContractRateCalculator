@@ -26,6 +26,16 @@ namespace Calculation.Expenses
         }
         #endregion
 
+        #region     Constructor
+        public Expenses()
+        {
+            AccountingExpense = new Accounting();
+            MileageExpense = new Mileage();
+            Pension = new Pension();
+            Salary = new Salary();
+        }
+        #endregion
+
         #region Public methods
         public void SetAccountingFees(decimal fees)
         {
@@ -43,6 +53,10 @@ namespace Calculation.Expenses
             Pension.Amount = pensionAmount;
         }
         
+        public void SetSalary(decimal salary)
+        {
+            Salary.Amount = salary;
+        }
         #endregion
     }
 }

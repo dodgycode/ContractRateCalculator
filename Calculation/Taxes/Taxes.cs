@@ -10,7 +10,7 @@ namespace Calculation.Taxes
         private IncomeTax IncomeTax { get; set; }
         private NationalInsurance NationalInsurance { get; set; }
         private VAT VAT { get; set; }
-
+        
         public override decimal Amount
         {
             get
@@ -26,31 +26,60 @@ namespace Calculation.Taxes
             }
         }
 
+        private decimal _salary;
         private decimal Salary
         {
+            get
+            {
+                return _salary;
+            }
             set
             {
+                _salary = value;
                 DividendTax.SetSalary(value);
                 IncomeTax.SetSalary(value);
                 NationalInsurance.SetSalary(value);
             }
         }
 
+        private decimal _grossDividends;
         private decimal GrossDividends
         {
+            get
+            {
+                return _grossDividends;
+            }
             set
             {
+                _grossDividends = value;
                 CorporationTax.NetPreTaxRevenue = value;
                 DividendTax.SetGrossDividends(value);
             }
         }
 
+        private decimal _grossRevenue;
         private decimal GrossRevenue
         {
+            get
+            {
+                return _grossRevenue;
+            }
             set
             {
+                _grossRevenue = value;
                 VAT.SetGrossRevenue(value);
             }
+        }
+        #endregion
+
+        #region     Constructor
+        public Taxes()
+        {
+            CorporationTax = new CorporationTax();
+            DividendTax = new DividendTax();
+            IncomeTax = new IncomeTax();
+            NationalInsurance = new NationalInsurance();
+            VAT = new VAT();
         }
         #endregion
 

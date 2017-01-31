@@ -71,20 +71,24 @@ namespace Calculation.Taxes
             }
         }
         
-        private decimal AvailableAllowance
-        {
-            get
-            {
-                var allowance = PersonalAllowance - Salary > 0 ?
-                    PersonalAllowance - Salary : 0;
-
-                return allowance;
-            }
-        }
+        
+        private decimal AvailableAllowance { get; set; }
 
         private decimal GrossDividends { get; set; }
 
-        private decimal Salary { get; set; }
+        private decimal _salary;
+        private decimal Salary
+        {
+            get
+            {
+                return _salary;
+            }
+            set
+            {
+                _salary = value;
+                CalculateAvailableAllowance();
+            }
+        }
 
         #endregion
 
@@ -97,6 +101,16 @@ namespace Calculation.Taxes
         public void SetGrossDividends(decimal revenue)
         {
             GrossDividends = revenue;
+        }
+        #endregion
+
+        #region Private methods
+        private void CalculateAvailableAllowance()
+        {
+            var allowance = PersonalAllowance - Salary > 0 ?
+                   PersonalAllowance - Salary : 0;
+
+            AvailableAllowance = allowance;
         }
         #endregion
     }

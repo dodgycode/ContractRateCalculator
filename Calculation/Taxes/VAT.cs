@@ -4,12 +4,12 @@ namespace Calculation.Taxes
 {
     public class VAT : ItemRecord
     {
-        #region Properties
+        #region Constants
         private const decimal FlatRate = 0.145M;
         private const decimal FullRate = 0.2M;
         #endregion
 
-
+        #region Properties
         public override decimal Amount
         {
             get
@@ -30,7 +30,7 @@ namespace Calculation.Taxes
         {
             get
             {
-                return GrossRevenue * FlatRate;
+                return (GrossRevenue + InputVat) * FlatRate;
             }
         }
        
@@ -40,5 +40,6 @@ namespace Calculation.Taxes
         {
             GrossRevenue = grossRevenue;
         }
+        #endregion
     }
 }

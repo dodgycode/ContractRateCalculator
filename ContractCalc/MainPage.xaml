@@ -5,31 +5,41 @@
     xmlns:local="using:ContractCalc"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    xmlns:viewModels="using:ContractCalc.ViewModels">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Slider x:Name="slider" HorizontalAlignment="Left" Margin="10,48,0,0" VerticalAlignment="Top" Width="340" Minimum="150" Maximum="1000" Value="400"/>
+        
+        <Slider x:Name="slider" HorizontalAlignment="Left" Margin="10,48,0,0" VerticalAlignment="Top" Width="340" Minimum="150" Maximum="1000" 
+                Value="{x:Bind thModel.DayRate}" ValueChanged="slider_ValueChanged"/>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,30,0,0" TextWrapping="Wrap" Text="Day Rate" VerticalAlignment="Top"/>
         <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="139,34,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
 
-        <Slider x:Name="slider_Copy" HorizontalAlignment="Left" Margin="10,111,0,0" VerticalAlignment="Top" Width="340" Maximum="52" Value="26"/>
+        <Slider x:Name="slider_Copy" HorizontalAlignment="Left" Margin="10,111,0,0" VerticalAlignment="Top" Width="340" Maximum="52" 
+                Value="{x:Bind thModel.WeeksWorked}"/>
         <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="10,92,0,0" TextWrapping="Wrap" Text="Weeks Worked" VerticalAlignment="Top" Height="21"/>
         <TextBlock x:Name="textBlock1_Copy" HorizontalAlignment="Left" Margin="139,97,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
 
-        <Slider x:Name="slider_Copy1" HorizontalAlignment="Left" Margin="10,169,0,0" VerticalAlignment="Top" Width="340" Value="10600"/>
+        <Slider x:Name="slider_Copy1" HorizontalAlignment="Left" Margin="10,169,0,0" VerticalAlignment="Top" Width="340" 
+                Value="{x:Bind thModel.Salary}"/>
         <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="10,151,0,0" TextWrapping="Wrap" Text="Salary" VerticalAlignment="Top"/>
         <TextBlock x:Name="textBlock1_Copy1" HorizontalAlignment="Left" Margin="139,155,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
 
-        <Slider x:Name="slider_Copy2" HorizontalAlignment="Left" Margin="10,232,0,0" VerticalAlignment="Top" Width="340"/>
+        <Slider x:Name="slider_Copy2" HorizontalAlignment="Left" Margin="10,232,0,0" VerticalAlignment="Top" Width="340"
+                Value="{x:Bind thModel.Pension}"/>
         <TextBlock x:Name="textBlock_Copy2" HorizontalAlignment="Left" Margin="10,214,0,0" TextWrapping="Wrap" Text="Pension" VerticalAlignment="Top"/>
         <TextBlock x:Name="textBlock1_Copy2" HorizontalAlignment="Left" Margin="139,218,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
 
-        <Slider x:Name="slider_Copy3" HorizontalAlignment="Left" Margin="10,295,0,0" VerticalAlignment="Top" Width="340" Maximum="2000"/>
+        <Slider x:Name="slider_Copy3" HorizontalAlignment="Left" Margin="10,295,0,0" VerticalAlignment="Top" Width="340" Maximum="2000"
+                Value="{x:Bind thModel.AccountingFees}"/>
         <TextBlock x:Name="textBlock_Copy3" HorizontalAlignment="Left" Margin="10,277,0,0" TextWrapping="Wrap" Text="Accounting Fees" VerticalAlignment="Top"/>
         <TextBlock x:Name="textBlock1_Copy3" HorizontalAlignment="Left" Margin="139,281,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
 
-        <Slider x:Name="slider_Copy4" HorizontalAlignment="Left" Margin="10,358,0,0" VerticalAlignment="Top" Width="340" Maximum="100"/>
+        <Slider x:Name="slider_Copy4" HorizontalAlignment="Left" Margin="10,358,0,0" VerticalAlignment="Top" Width="340" Maximum="100"
+                Value="{x:Bind thModel.MilesPerDay}"/>
         <TextBlock x:Name="textBlock_Copy4" HorizontalAlignment="Left" Margin="10,340,0,0" TextWrapping="Wrap" Text="Miles Per Day" VerticalAlignment="Top"/>
         <TextBlock x:Name="textBlock1_Copy4" HorizontalAlignment="Left" Margin="139,344,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+
+        <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="49,440,0,0" TextWrapping="Wrap" Text="{x:Bind thModel.TotalIncludingPension}" VerticalAlignment="Top"/>
     </Grid>
 </Page>
