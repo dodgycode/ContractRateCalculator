@@ -16,11 +16,17 @@ namespace ContractCalc
         {
             InitializeComponent();
             thModel = new TakeHomeViewModel();
+            DataContext = thModel;
         }
 
-        private void slider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        private void sldSalary_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
+            thModel.MaxPension = thModel.GrossRevenue - thModel.MaxSalary;
+        }
 
+        private void sldPension_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            thModel.MaxSalary = thModel.GrossRevenue - thModel.Pension;
         }
     }
 }

@@ -129,7 +129,7 @@
         }
        
         private decimal _grossRevenue;
-        private decimal GrossRevenue
+        public decimal GrossRevenue
         {
             get
             {
