@@ -9,7 +9,7 @@ namespace CalculationTests
             var obj = new TakeHome()
             {
                 DayRate = 310,
-                WeeksWorked = 46,
+                WeeksWorked = 44,
                 MilesPerDay = 100,
                 Pension = 7000,
                 AccountingFees = 1200,

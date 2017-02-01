@@ -1,5 +1,4 @@
-﻿using Calculation;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CalculationTests
 {
@@ -9,7 +8,7 @@ namespace CalculationTests
         TestObjects testObjSource = new TestObjects();
 
         [TestMethod]
-        public void SetAccountingFees()
+        public void TestScenario1()
         {
            var obj= testObjSource.GetTest1();
            var result = obj.TotalIncludingPension;

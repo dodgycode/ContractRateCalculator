@@ -10,35 +10,39 @@ namespace Calculation.Taxes
         #endregion
 
         #region Properties
-        public override decimal Amount
+        private decimal InputVat { get; set; }
+
+        private decimal OutputVat { get; set; }
+
+        private decimal _grossRevenue;
+        private decimal GrossRevenue
         {
             get
             {
-               return InputVat - OutputVat;
+                return _grossRevenue;
             }
-        }
-
-        private decimal InputVat
-        {
-            get
+            set
             {
-                return GrossRevenue * FullRate;
+                _grossRevenue = value;
+                CalculateVat();
+
             }
         }
+        #endregion
 
-        private decimal OutputVat
-        {
-            get
-            {
-                return (GrossRevenue + InputVat) * FlatRate;
-            }
-        }
-       
-        private decimal GrossRevenue { get; set; }
-
+        #region Public methods
         public void SetGrossRevenue(decimal grossRevenue)
         {
             GrossRevenue = grossRevenue;
+        }
+        #endregion
+
+        #region Private methods
+        private void CalculateVat()
+        {
+            InputVat = GrossRevenue * FullRate;
+            OutputVat = (GrossRevenue + InputVat) * FlatRate;
+            Amount = OutputVat - InputVat; // Backwards to give negative amount
         }
         #endregion
     }

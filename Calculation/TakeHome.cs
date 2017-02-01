@@ -1,9 +1,9 @@
 ﻿namespace Calculation
 {
-    public class TakeHome
+    public class TakeHome 
     {
         #region Input Properties
-       
+
         private int _dayRate;
         /// <summary>
         ///     Pre-VAT day rate.
@@ -36,6 +36,7 @@
                 _weeksWorked = value;
                 GrossRevenue = DayRate * _weeksWorked * 5;
                 Expenses.SetMileage(MilesPerDay, _weeksWorked);
+                Expenses = Expenses;
             }
         }
 
@@ -54,6 +55,7 @@
                 _salary = value;
                 Taxes.SetSalary(_salary);
                 Expenses.SetSalary(_salary);
+                Expenses = Expenses;
             }
         }
 
@@ -71,6 +73,7 @@
             {
                 _pension = value;
                 Expenses.SetPension(_pension);
+                Expenses = Expenses;
             }
         }
 
@@ -88,6 +91,7 @@
             {
                 _accountingFees = value;
                 Expenses.SetAccountingFees(_accountingFees);
+                Expenses = Expenses;
             }
         }
 
@@ -102,20 +106,54 @@
             {
                 _milesPerDay = value;
                 Expenses.SetMileage(_milesPerDay, WeeksWorked);
+                Expenses = Expenses;
             }
         }
         #endregion
 
         #region Private properties
         private Taxes.Taxes Taxes { get; set; }
-        private Expenses.Expenses Expenses { get; set; }
-        private decimal GrossRevenue { get; set; }
 
+        private Expenses.Expenses _expenses;
+        private Expenses.Expenses Expenses
+        {
+            get
+            {
+                return _expenses;
+            }
+            set
+            {
+                _expenses = value;
+                GrossDividends = GrossRevenue - _expenses.Amount;
+            }
+        }
+       
+        private decimal _grossRevenue;
+        private decimal GrossRevenue
+        {
+            get
+            {
+                return _grossRevenue;
+            }
+            set
+            {
+                _grossRevenue = value;
+                Taxes.SetGrossRevenue(_grossRevenue);
+                GrossDividends = _grossRevenue - Expenses.Amount;
+            }
+        }
+
+        private decimal _grossDividends;
         private decimal GrossDividends
         {
             get
             {
-                return GrossRevenue - Expenses.Amount;
+                return _grossDividends;
+            }
+            set
+            {
+                _grossDividends = value;
+                Taxes.SetGrossDividends(_grossDividends);
             }
         }
         #endregion
@@ -135,7 +173,7 @@
             get
             {
                 return TotalIncludingPension -
-                    Expenses.Pension.Amount;
+                    Expenses.GetPensionAmount() ;
             }
         }
         #endregion

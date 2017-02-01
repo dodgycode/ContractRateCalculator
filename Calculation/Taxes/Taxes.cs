@@ -1,4 +1,5 @@
-﻿using Calculation.BaseClasses;
+﻿using System;
+using Calculation.BaseClasses;
 
 namespace Calculation.Taxes
 {
@@ -10,21 +11,6 @@ namespace Calculation.Taxes
         private IncomeTax IncomeTax { get; set; }
         private NationalInsurance NationalInsurance { get; set; }
         private VAT VAT { get; set; }
-        
-        public override decimal Amount
-        {
-            get
-            {
-                var total = 0.0M;
-                total += CorporationTax.Amount;
-                total += DividendTax.Amount;
-                total += IncomeTax.Amount;
-                total += NationalInsurance.Amount;
-                total += VAT.Amount;
-
-                return total;
-            }
-        }
 
         private decimal _salary;
         private decimal Salary
@@ -39,6 +25,7 @@ namespace Calculation.Taxes
                 DividendTax.SetSalary(value);
                 IncomeTax.SetSalary(value);
                 NationalInsurance.SetSalary(value);
+                CalculateTotalTax();
             }
         }
 
@@ -54,6 +41,7 @@ namespace Calculation.Taxes
                 _grossDividends = value;
                 CorporationTax.NetPreTaxRevenue = value;
                 DividendTax.SetGrossDividends(value);
+                CalculateTotalTax();
             }
         }
 
@@ -68,6 +56,7 @@ namespace Calculation.Taxes
             {
                 _grossRevenue = value;
                 VAT.SetGrossRevenue(value);
+                CalculateTotalTax();
             }
         }
         #endregion
@@ -97,6 +86,20 @@ namespace Calculation.Taxes
         public void SetGrossRevenue(decimal revenue)
         {
             GrossRevenue = revenue;
+        }
+        #endregion
+
+        #region Private methods
+        private void CalculateTotalTax()
+        {
+            var total = 0.0M;
+            total += CorporationTax.Amount;
+            total += DividendTax.Amount;
+            total += IncomeTax.Amount;
+            total += NationalInsurance.Amount;
+            total += VAT.Amount;
+
+            Amount = total;
         }
         #endregion
     }

@@ -9,15 +9,20 @@ namespace Calculation.Taxes
         #endregion
 
         #region   Properties
-        public override decimal Amount
+
+        private decimal _netPreTaxRevenue;
+        public decimal NetPreTaxRevenue
         {
             get
             {
-                return NetPreTaxRevenue * CorporationTaxRate ;
+                return _netPreTaxRevenue;
+            }
+            set
+            {
+                _netPreTaxRevenue = value;
+                Amount = _netPreTaxRevenue * CorporationTaxRate;
             }
         }
-
-        public decimal NetPreTaxRevenue { get; set; }
         #endregion
     }
 }

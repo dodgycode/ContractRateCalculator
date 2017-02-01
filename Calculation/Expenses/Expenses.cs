@@ -4,26 +4,12 @@ namespace Calculation.Expenses
 {
     public class Expenses : ItemRecord
     {
+
         #region Properties
-
-        public Accounting AccountingExpense { get; set; }
-        public Mileage MileageExpense { get; set; }
-        public Pension Pension { get; set; }
-        public Salary Salary { get; set; }
-
-        public override decimal Amount
-        {
-            get
-            {
-                var total = 0.0M;
-                total += AccountingExpense.Amount;
-                total += MileageExpense.Amount;
-                total += Pension.Amount;
-                total += Salary.Amount;
-
-                return total;
-            }
-        }
+        private Accounting AccountingExpense { get; set; }
+        private Mileage MileageExpense { get; set; }
+        private Pension Pension { get; set; }
+        private Salary Salary { get; set; }
         #endregion
 
         #region     Constructor
@@ -40,22 +26,44 @@ namespace Calculation.Expenses
         public void SetAccountingFees(decimal fees)
         {
             AccountingExpense.Amount = fees;
+            CalculateExpenses();
         }
-
+        
         public void SetMileage(int milesPerDay, int weeksWorked)
         {
             MileageExpense.MilesPerDay = milesPerDay;
             MileageExpense.WeeksWorked = weeksWorked;
+            CalculateExpenses();
         }
 
         public void SetPension (decimal pensionAmount)
         {
             Pension.Amount = pensionAmount;
+            CalculateExpenses();
         }
         
         public void SetSalary(decimal salary)
         {
             Salary.Amount = salary;
+            CalculateExpenses();
+        }
+
+        public decimal GetPensionAmount()
+        {
+            return Pension.Amount;
+        }
+        #endregion
+
+        #region     Private methods
+        private void CalculateExpenses()
+        {
+            var total = 0.0M;
+            total += AccountingExpense.Amount;
+            total += MileageExpense.Amount;
+            total += Pension.Amount;
+            total += Salary.Amount;
+
+            Amount = total;
         }
         #endregion
     }
