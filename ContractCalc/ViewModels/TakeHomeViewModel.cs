@@ -91,6 +91,7 @@ namespace ContractCalc.ViewModels
             set
             {
                 _grossRevenue = value;
+                RaisePropertyChanged();
             }
         }
 
