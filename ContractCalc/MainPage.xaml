@@ -6,47 +6,167 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    xmlns:viewModels="using:ContractCalc.ViewModels">
-    <!--<Page.Resources>
+    xmlns:viewModels="using:ContractCalc.ViewModels"
+    Loaded="Page_Loaded">
+    <Page.Resources>
         <local:StringFormatConverter x:Key="StringFormatConverter"/>
-    </Page.Resources>-->
+    </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    
-        
-        <Slider x:Name="slider" HorizontalAlignment="Left" Margin="10,48,0,0" VerticalAlignment="Top" Width="340" Minimum="150" Maximum="1000" 
-                Value="{x:Bind thModel.DayRate, Mode=TwoWay}" SnapsTo="StepValues" StepFrequency="10"/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,30,0,0" TextWrapping="Wrap" Text="Day Rate" VerticalAlignment="Top"/>
-        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="139,34,0,0" TextWrapping="Wrap" Text="{x:Bind thModel.DayRate, Mode=OneWay}" VerticalAlignment="Top"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
 
-        <Slider x:Name="slider_Copy" HorizontalAlignment="Left" Margin="10,111,0,0" VerticalAlignment="Top" Width="340" Minimum="0" Maximum="52" 
-                Value="{x:Bind thModel.WeeksWorked, Mode=TwoWay}"/>
-        <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="10,92,0,0" TextWrapping="Wrap" Text="Weeks Worked" VerticalAlignment="Top" Height="21"/>
-        <TextBlock x:Name="textBlock1_Copy" HorizontalAlignment="Left" Margin="139,97,0,0" TextWrapping="Wrap" Text="{x:Bind thModel.WeeksWorked, Mode=OneWay}" VerticalAlignment="Top"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-        <Slider x:Name="sldSalary" HorizontalAlignment="Left" Margin="10,169,0,0" VerticalAlignment="Top" Width="340" Minimum="0"
+        <!-- Day Rate-->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="5" TextWrapping="Wrap" Text="Day Rate" VerticalAlignment="Top"
+                       FontWeight="Bold"/>
+            <TextBlock x:Name="textBlock1" HorizontalAlignment="Right" Margin="5" TextWrapping="Wrap" 
+                   Text="{x:Bind thModel.DayRate, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter='£{0}'}" VerticalAlignment="Top" Grid.Column="1"/>
+            
+            <Slider x:Name="slider" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Top" Width="340" Minimum="150" Maximum="600" 
+                Value="{x:Bind thModel.DayRate, Mode=TwoWay}" SnapsTo="StepValues" StepFrequency="10"
+                    Grid.ColumnSpan="2" Grid.Row="1"/>
+        </Grid>
+
+        <!-- Weeks Worked-->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="5" TextWrapping="Wrap" Text="Weeks Worked" VerticalAlignment="Top" Height="21"
+                       FontWeight="Bold"/>
+            <TextBlock x:Name="textBlock1_Copy" HorizontalAlignment="Right" Margin="5" TextWrapping="Wrap" 
+                       Text="{x:Bind thModel.WeeksWorked, Mode=OneWay}"
+                       VerticalAlignment="Top" Grid.Column="1"/>
+            <Slider x:Name="slider_Copy" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Top" Width="340" Minimum="0" Maximum="52" 
+                Value="{x:Bind thModel.WeeksWorked, Mode=TwoWay}" Grid.ColumnSpan="2" Grid.Row="1"/>
+        </Grid>
+
+        <!-- Salary-->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="5" TextWrapping="Wrap" Text="Salary" VerticalAlignment="Top"
+                       FontWeight="Bold"/>
+            <TextBlock x:Name="textBlock1_Copy1" HorizontalAlignment="Right" Margin="5" TextWrapping="Wrap" 
+                       Text="{x:Bind thModel.Salary, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=' {0:c}'}"
+                       VerticalAlignment="Top" Grid.Column="1"/>
+            <Slider x:Name="sldSalary" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Top" Width="340" Minimum="0"
                 Value="{x:Bind thModel.Salary, Mode=TwoWay}" Maximum="{x:Bind thModel.MaxSalary, Mode=OneWay}" ValueChanged="sldSalary_ValueChanged"
-                SnapsTo="StepValues" StepFrequency="100"/>
-        <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="10,151,0,0" TextWrapping="Wrap" Text="Salary" VerticalAlignment="Top"/>
-        <TextBlock x:Name="textBlock1_Copy1" HorizontalAlignment="Left" Margin="139,155,0,0" TextWrapping="Wrap" Text="{x:Bind thModel.Salary, Mode=OneWay}" VerticalAlignment="Top"/>
+                SnapsTo="StepValues" StepFrequency="100" Grid.ColumnSpan="2" Grid.Row="1"/>
+        </Grid>
 
-        <Slider x:Name="sldPension" HorizontalAlignment="Left" Margin="10,232,0,0" VerticalAlignment="Top" Width="340" Minimum="0"
+        <!-- Pension-->
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="textBlock_Copy2" HorizontalAlignment="Left" Margin="5" TextWrapping="Wrap" Text="Pension" VerticalAlignment="Top"
+                       FontWeight="Bold"/>
+        <TextBlock x:Name="textBlock1_Copy2" HorizontalAlignment="Right" Margin="5" TextWrapping="Wrap" 
+                   Text="{x:Bind thModel.Pension, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=' {0:c}'}"
+                   VerticalAlignment="Top" Grid.Column="1"/>
+            <Slider x:Name="sldPension" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Top" Width="340" Minimum="0"
                 Value="{x:Bind thModel.Pension, Mode=TwoWay}" Maximum="{x:Bind thModel.MaxSalary, Mode=OneWay}" ValueChanged="sldPension_ValueChanged"
-                SnapsTo="StepValues" StepFrequency="100"/>
-        <TextBlock x:Name="textBlock_Copy2" HorizontalAlignment="Left" Margin="10,214,0,0" TextWrapping="Wrap" Text="Pension" VerticalAlignment="Top"/>
-        <TextBlock x:Name="textBlock1_Copy2" HorizontalAlignment="Left" Margin="139,218,0,0" TextWrapping="Wrap" Text="{x:Bind thModel.Pension, Mode=OneWay}" VerticalAlignment="Top"/>
+                SnapsTo="StepValues" StepFrequency="100" Grid.ColumnSpan="2" Grid.Row="1"/>
+        </Grid>
 
-        <Slider x:Name="slider_Copy3" HorizontalAlignment="Left" Margin="10,295,0,0" VerticalAlignment="Top" Width="340" Maximum="2000" Minimum="0"
-                Value="{x:Bind thModel.AccountingFees, Mode=TwoWay}" SnapsTo="StepValues" StepFrequency="10"/>
-        <TextBlock x:Name="textBlock_Copy3" HorizontalAlignment="Left" Margin="10,277,0,0" TextWrapping="Wrap" Text="Accounting Fees" VerticalAlignment="Top"/>
-        <TextBlock x:Name="textBlock1_Copy3" HorizontalAlignment="Left" Margin="139,281,0,0" TextWrapping="Wrap" Text="{x:Bind thModel.AccountingFees, Mode=OneWay}" VerticalAlignment="Top"/>
+        <!-- Accounting fees-->
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+        <TextBlock x:Name="textBlock_Copy3" HorizontalAlignment="Left" Margin="5" TextWrapping="Wrap" Text="Accounting Fees" VerticalAlignment="Top"
+                   FontWeight="Bold"/>
+            <TextBlock x:Name="textBlock1_Copy3" HorizontalAlignment="Right" Margin="5" TextWrapping="Wrap" 
+                       Text="{x:Bind thModel.AccountingFees, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=' {0:c}'}"
+                       VerticalAlignment="Top" Grid.Column="1"/>
+            <Slider x:Name="slider_Copy3" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Top" Width="340" Maximum="2000" Minimum="0"
+                Value="{x:Bind thModel.AccountingFees, Mode=TwoWay}" SnapsTo="StepValues" StepFrequency="10"  Grid.ColumnSpan="2" Grid.Row="1"/>
+        </Grid>
 
-        <Slider x:Name="slider_Copy4" HorizontalAlignment="Left" Margin="10,358,0,0" VerticalAlignment="Top" Width="340" Maximum="100" Minimum="0"
-                Value="{x:Bind thModel.MilesPerDay, Mode=TwoWay}"/>
-        <TextBlock x:Name="textBlock_Copy4" HorizontalAlignment="Left" Margin="10,340,0,0" TextWrapping="Wrap" Text="Miles Per Day" VerticalAlignment="Top"/>
-        <TextBlock x:Name="textBlock1_Copy4" HorizontalAlignment="Left" Margin="139,344,0,0" TextWrapping="Wrap" Text="{x:Bind thModel.MilesPerDay, Mode=OneWay}" VerticalAlignment="Top"/>
+        <!-- Miles per day-->
+        <Grid Grid.Row="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+        <TextBlock x:Name="textBlock_Copy4" HorizontalAlignment="Left" Margin="5" TextWrapping="Wrap" Text="Miles Per Day" VerticalAlignment="Top"
+                   FontWeight="Bold"/>
+            <TextBlock x:Name="textBlock1_Copy4" HorizontalAlignment="Right" Margin="5" TextWrapping="Wrap" 
+                       Text="{x:Bind thModel.MilesPerDay, Mode=OneWay}" 
+                       VerticalAlignment="Top" Grid.Column="1"/>
+            <Slider x:Name="slider_Copy4" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Top" Width="340" Maximum="100" Minimum="0"
+                Value="{x:Bind thModel.MilesPerDay, Mode=TwoWay}" Grid.ColumnSpan="2" Grid.Row="1"/>
+        </Grid>
 
-        <TextBlock x:Name="textBox" HorizontalAlignment="Left" Margin="69,423,0,0" TextWrapping="Wrap" Text="{x:Bind thModel.TotalIncludingPension, Mode=OneWay}" VerticalAlignment="Top"/>
-        <TextBlock x:Name="textBox1" HorizontalAlignment="Left" Margin="69,460,0,0" TextWrapping="Wrap" Text="{x:Bind thModel.TotalExcludingPension, Mode=OneWay}" VerticalAlignment="Top"/>
+        <!-- Summary -->
+        <Grid Grid.Row="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Name="tbIncPensLabel" HorizontalAlignment="Center" Margin="5" TextWrapping="Wrap" Text="Total (incl. Pension)" 
+                       VerticalAlignment="Top" Grid.Row="0" FontWeight="Bold"/>
+            <TextBlock x:Name="tbExcPensLabel" HorizontalAlignment="Center" Margin="5" TextWrapping="Wrap" Text="Total (excl. Pension)" 
+                   VerticalAlignment="Top" Grid.Column="1" Grid.Row="0" FontWeight="Bold"/>
+
+            <TextBlock x:Name="textBox" HorizontalAlignment="Center" Margin="5" TextWrapping="Wrap" 
+                       Text="{x:Bind thModel.TotalIncludingPension, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=' {0:c}'}" 
+                       VerticalAlignment="Top" Grid.Row="1"/>
+            <TextBlock x:Name="textBox1" HorizontalAlignment="Center" Margin="5" TextWrapping="Wrap" 
+                       Text="{x:Bind thModel.TotalExcludingPension, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter=' {0:c}'}" 
+                   VerticalAlignment="Top" Grid.Column="1" Grid.Row="1"/>
+        </Grid>
     </Grid>
 </Page>

@@ -145,7 +145,7 @@ namespace ContractCalc.ViewModels
         #region Constructor
         public TakeHomeViewModel()
         {
-            takeHome = takeHome == null ? new TakeHome() : takeHome;
+            takeHome = new TakeHome();
         }
         #endregion
 
@@ -159,7 +159,7 @@ namespace ContractCalc.ViewModels
         }
         #endregion
 
-        
+
     }
     
 }

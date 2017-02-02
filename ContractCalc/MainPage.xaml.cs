@@ -32,5 +32,20 @@ namespace ContractCalc
             thModel.Salary = thModel.Salary + thModel.Pension > thModel.MaxSalary ?
                 thModel.MaxSalary - thModel.Pension : thModel.Salary;
         }
+
+        private void Page_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            SetStartingValues();
+        }
+
+        private void SetStartingValues()
+        {
+            thModel.DayRate = 310;
+            thModel.WeeksWorked = 46;
+            thModel.Salary = 10000;
+            thModel.Pension = 5000;
+            thModel.AccountingFees = 1200;
+            thModel.MilesPerDay = 35;
+        }
     }
 }
