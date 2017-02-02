@@ -52,6 +52,11 @@ namespace Calculation.Expenses
         {
             return Pension.Amount;
         }
+
+        public decimal GetMileageExpenseAmount()
+        {
+            return MileageExpense.Amount;
+        }
         #endregion
 
         #region     Private methods

@@ -125,24 +125,10 @@
             {
                 _expenses = value;
                 GrossDividends = GrossRevenue - _expenses.Amount;
+                MileageExpense = _expenses.GetMileageExpenseAmount();
             }
         }
        
-        private decimal _grossRevenue;
-        public decimal GrossRevenue
-        {
-            get
-            {
-                return _grossRevenue;
-            }
-            set
-            {
-                _grossRevenue = value;
-                Taxes.SetGrossRevenue(_grossRevenue);
-                GrossDividends = _grossRevenue - Expenses.Amount;
-            }
-        }
-
         private decimal _grossDividends;
         private decimal GrossDividends
         {
@@ -159,6 +145,23 @@
         #endregion
 
         #region Output properties
+        public decimal MileageExpense { get; set; }
+
+        private decimal _grossRevenue;
+        public decimal GrossRevenue
+        {
+            get
+            {
+                return _grossRevenue;
+            }
+            set
+            {
+                _grossRevenue = value;
+                Taxes.SetGrossRevenue(_grossRevenue);
+                GrossDividends = _grossRevenue - Expenses.Amount;
+            }
+        }
+
         public decimal TotalIncludingPension
         {
             get

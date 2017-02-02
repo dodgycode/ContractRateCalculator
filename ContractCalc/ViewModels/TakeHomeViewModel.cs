@@ -108,20 +108,6 @@ namespace ContractCalc.ViewModels
                 RaisePropertyChanged();
             }
         }
-
-        private double _maxPension;
-        public double MaxPension
-        {
-            get
-            {
-                return _maxPension;
-            }
-            set
-            {
-                _maxPension = value;
-                RaisePropertyChanged();
-            }
-        }
         #endregion
 
         #region Output properties
@@ -146,6 +132,14 @@ namespace ContractCalc.ViewModels
                 RaisePropertyChanged();
             }
         }
+
+        public double MileageExpense
+        {
+            get
+            {
+                return (double)takeHome.MileageExpense;
+            }
+        }
         #endregion
 
         #region Constructor
@@ -161,10 +155,11 @@ namespace ContractCalc.ViewModels
             TotalIncludingPension = takeHome.TotalIncludingPension;
             TotalExcludingPension = takeHome.TotalIncludingPension;
             GrossRevenue = (double)takeHome.GrossRevenue;
-            MaxPension = MaxPension == 0 ? GrossRevenue : MaxPension;
-            MaxSalary = MaxSalary == 0 ? GrossRevenue : MaxSalary;
+            MaxSalary = GrossRevenue - (double)takeHome.AccountingFees - (double)takeHome.MileageExpense;
         }
         #endregion
 
+        
     }
+    
 }

@@ -5,10 +5,12 @@ namespace Calculation.Taxes
     public class NationalInsurance : ItemRecord
     {
         #region Constants
+        // Tax year 2016/17
         private const decimal FullRate = 0.12M;
         private const decimal ReducedRate = 0.02M;
-        private const decimal FullRateWeeklyThreshold = 149;
-        private const decimal ReducedRateWeeklyThreshold = 797;
+        private const decimal EmployerRate = 0.138M;
+        private const decimal FullRateWeeklyThreshold = 156; 
+        private const decimal ReducedRateWeeklyThreshold = 827; 
         #endregion
 
         #region Properties
@@ -24,16 +26,20 @@ namespace Calculation.Taxes
         {
             get
             {
-                var contribution = WeeklySalary > FullRateWeeklyThreshold ?
+                var employeeContribution = WeeklySalary > FullRateWeeklyThreshold ?
                     WeeklySalary - FullRateWeeklyThreshold : 0;
 
-                contribution = contribution > ReducedRateWeeklyThreshold ?
-                    ReducedRateWeeklyThreshold : contribution;
+                employeeContribution = employeeContribution > ReducedRateWeeklyThreshold ?
+                    ReducedRateWeeklyThreshold : employeeContribution;
 
-                contribution = contribution > 0 ?
-                    contribution * FullRate * 52 : 0;
+                employeeContribution = employeeContribution > 0 ?
+                    employeeContribution * FullRate * 52 : 0;
 
-                return contribution;
+                var employerContribution = WeeklySalary > FullRateWeeklyThreshold ?
+                    WeeklySalary - FullRateWeeklyThreshold : 0;
+                employerContribution = employerContribution * EmployerRate * 52;
+
+                return employeeContribution + employerContribution;
              }
         }
 

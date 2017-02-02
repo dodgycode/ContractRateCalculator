@@ -109,8 +109,8 @@ namespace Calculation.Taxes
             var tax = Salary > HigherRateAmount ?
                   Salary - HigherRateAmount : 0;
 
-            tax = tax > AdditionalRate ?
-                AdditionalRate : tax;
+            tax = tax > AdditionalRateAmount ?
+                AdditionalRateAmount : tax;
 
             tax = tax > 0 ?
              tax * HigherRate : 0;

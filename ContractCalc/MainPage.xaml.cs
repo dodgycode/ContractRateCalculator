@@ -21,12 +21,16 @@ namespace ContractCalc
 
         private void sldSalary_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
-            thModel.MaxPension = thModel.GrossRevenue - thModel.MaxSalary;
+            thModel.MaxSalary = thModel.GrossRevenue - thModel.AccountingFees - thModel.MileageExpense;
+            thModel.Pension = thModel.Salary + thModel.Pension > thModel.MaxSalary ?
+                thModel.MaxSalary - thModel.Salary : thModel.Pension;
         }
 
         private void sldPension_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
-            thModel.MaxSalary = thModel.GrossRevenue - thModel.Pension;
+            thModel.MaxSalary = thModel.GrossRevenue - thModel.AccountingFees - thModel.MileageExpense;
+            thModel.Salary = thModel.Salary + thModel.Pension > thModel.MaxSalary ?
+                thModel.MaxSalary - thModel.Pension : thModel.Salary;
         }
     }
 }

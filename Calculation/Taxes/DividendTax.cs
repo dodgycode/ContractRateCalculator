@@ -47,12 +47,15 @@ namespace Calculation.Taxes
                 var taxableAmount = GrossDividends > BasicRateAmount ?
                     GrossDividends - BasicRateAmount : 0;
 
-                taxableAmount = taxableAmount > HigherRateAmount ?
-                    HigherRateAmount - BasicRateAmount : GrossDividends;
+                if(taxableAmount > 0)
+                {
+                    taxableAmount = taxableAmount > HigherRateAmount ?
+                                        HigherRateAmount - BasicRateAmount : GrossDividends;
 
-                taxableAmount = taxableAmount > 0 ?
-                    taxableAmount * 0.325M : 0;
-
+                    taxableAmount = taxableAmount > 0 ?
+                        taxableAmount * 0.325M : 0;
+                }
+                
                 return taxableAmount;
             }
         }
