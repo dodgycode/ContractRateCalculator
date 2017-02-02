@@ -109,6 +109,12 @@ namespace Calculation.Taxes
             var tax = Salary > HigherRateAmount ?
                   Salary - HigherRateAmount : 0;
 
+            if (tax == 0)
+            {
+                HigherRateTax = 0;
+                return;
+            }
+
             tax = tax > AdditionalRateAmount ?
                 AdditionalRateAmount : tax;
 
@@ -123,6 +129,12 @@ namespace Calculation.Taxes
             var tax = Salary > AvailableAllowance ?
                    Salary - AvailableAllowance : 0;
 
+            if (tax == 0)
+            {
+                BasicRateTax = 0;
+                return;
+            }
+
             tax = tax > HigherRateAmount ?
                 HigherRateAmount : tax;
 
@@ -130,6 +142,8 @@ namespace Calculation.Taxes
              tax * BasicRate : 0;
 
             BasicRateTax = tax;
+
         }
+
     }
 }

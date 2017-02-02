@@ -7,7 +7,10 @@ namespace Calculation.Taxes
         #region Constants
         private const int TaxFreeAmount = 5000;
         private const int BasicRateAmount = 32000;
+        private const decimal BasicRate = 0.075M;
         private const int HigherRateAmount = 150000;
+        private const decimal HigherRate = 0.325M;
+        private const decimal AdditionalRate = 0.381M;
         private const int PersonalAllowance = 11000;
         #endregion
 
@@ -16,11 +19,11 @@ namespace Calculation.Taxes
         {
             get
             {
-                return TaxedAt7_5 + TaxedAt32_5 + TaxedAt38_1;
+                return BasicRateDividendTax + HigherRateDividendTax + AdditionalRateDividendTax;
             }
         }
         
-        private decimal TaxedAt7_5
+        private decimal BasicRateDividendTax
         {
             get
             {
@@ -34,13 +37,13 @@ namespace Calculation.Taxes
                     taxableAmount - AvailableAllowance : 0;
 
                 taxableAmount = taxableAmount > 0 ?
-                 taxableAmount * 0.075M : 0;
+                 taxableAmount * BasicRate : 0;
 
                 return taxableAmount;
             }
         }
 
-        private decimal TaxedAt32_5
+        private decimal HigherRateDividendTax
         {
             get
             {
@@ -50,17 +53,17 @@ namespace Calculation.Taxes
                 if(taxableAmount > 0)
                 {
                     taxableAmount = taxableAmount > HigherRateAmount ?
-                                        HigherRateAmount - BasicRateAmount : GrossDividends;
+                                        HigherRateAmount - BasicRateAmount : taxableAmount;
 
                     taxableAmount = taxableAmount > 0 ?
-                        taxableAmount * 0.325M : 0;
+                        taxableAmount * HigherRate : 0;
                 }
                 
                 return taxableAmount;
             }
         }
 
-        private decimal TaxedAt38_1
+        private decimal AdditionalRateDividendTax
         {
             get
             {
@@ -68,7 +71,7 @@ namespace Calculation.Taxes
                                     GrossDividends - HigherRateAmount : 0;
 
                 taxableAmount = taxableAmount > 0 ?
-                 taxableAmount * 0.381M : 0;
+                 taxableAmount * AdditionalRate : taxableAmount;
 
                 return taxableAmount;
             }
