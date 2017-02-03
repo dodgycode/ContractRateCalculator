@@ -37,16 +37,21 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="4" TextWrapping="Wrap" Text="Day Rate" VerticalAlignment="Top"
                        Style="{StaticResource SubtitleTextBlockStyle}"/>
+            
+            <ToggleSwitch  Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Top" OnContent="£1,200" OffContent="£600" 
+                           IsOn="{x:Bind thModel.ExtendMaxDayRate, Mode=TwoWay}" Grid.Column="1" Grid.Row="1" Margin="-15"/>
+            
             <TextBlock x:Name="textBlock1" HorizontalAlignment="Right" Margin="4" TextWrapping="Wrap" 
                    Text="{x:Bind thModel.DayRate, Mode=OneWay, Converter={StaticResource StringFormatConverter}, ConverterParameter='£{0:n0}'}"
                            VerticalAlignment="Top" Grid.Column="1" Style="{StaticResource BodyTextBlockStyle}"/>
 
-            <Slider x:Name="slider" HorizontalAlignment="Left" Margin="4" VerticalAlignment="Top" Width="296" Minimum="150" Maximum="600" 
-                Value="{x:Bind thModel.DayRate, Mode=TwoWay}" SnapsTo="StepValues" StepFrequency="10"
-                    Grid.ColumnSpan="2" Grid.Row="1"/>
+            <Slider x:Name="slider" HorizontalAlignment="Left" Margin="4" VerticalAlignment="Top" Width="296" Minimum="150" 
+                    Maximum="{x:Bind thModel.MaxDayRate, Mode=OneWay, FallbackValue=600}" Value="{x:Bind thModel.DayRate, Mode=TwoWay}"
+                    SnapsTo="StepValues" StepFrequency="10" Grid.ColumnSpan="2" Grid.Row="2"/>
         </Grid>
 
         <!-- Weeks Worked-->
@@ -61,8 +66,10 @@
             </Grid.RowDefinitions>
             <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="4" TextWrapping="Wrap" Text="Weeks Worked" VerticalAlignment="Top" Height="21"
                        Style="{StaticResource SubtitleTextBlockStyle}"/>
+            
             <TextBlock x:Name="textBlock1_Copy" HorizontalAlignment="Right" Margin="4" TextWrapping="Wrap" 
                        Text="{x:Bind thModel.WeeksWorked, Mode=OneWay}"
+                       
                        VerticalAlignment="Top" Grid.Column="1" Style="{StaticResource BodyTextBlockStyle}"/>
             <Slider x:Name="slider_Copy" HorizontalAlignment="Left" Margin="4" VerticalAlignment="Top" Width="296" Minimum="0" Maximum="52" 
                 Value="{x:Bind thModel.WeeksWorked, Mode=TwoWay}" Grid.ColumnSpan="2" Grid.Row="1"/>

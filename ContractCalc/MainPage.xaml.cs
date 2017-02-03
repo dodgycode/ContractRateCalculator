@@ -40,6 +40,7 @@ namespace ContractCalc
 
         private void SetStartingValues()
         {
+            thModel.MaxDayRate = 600;
             thModel.DayRate = 310;
             thModel.WeeksWorked = 46;
             thModel.Salary = 10000;

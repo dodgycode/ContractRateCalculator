@@ -26,6 +26,21 @@ namespace ContractCalc.ViewModels
                 UpdateResult();
             }
         }
+
+        private bool _extendMaxDayRate;
+        public bool ExtendMaxDayRate
+        { get
+            {
+                return _extendMaxDayRate;
+            }
+            set
+            {
+                _extendMaxDayRate = value;
+                MaxDayRate = _extendMaxDayRate ? 1200 : 600;
+                RaisePropertyChanged();
+            }
+        }
+
         public double WeeksWorked
         {
             get { return takeHome.WeeksWorked; }
@@ -78,9 +93,24 @@ namespace ContractCalc.ViewModels
                 UpdateResult();
             }
         }
+
         #endregion
 
         #region Control Properties
+        private double _maxDayRate;
+        public double MaxDayRate
+        {
+            get
+            {
+                return _maxDayRate;
+            }
+            set
+            {
+                _maxDayRate = value;
+                RaisePropertyChanged();
+            }
+        }
+
         private double _grossRevenue;
         public double GrossRevenue
         {
