@@ -12,7 +12,7 @@ namespace ContractCalc.ViewModels
 
         protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #region Input Properties
