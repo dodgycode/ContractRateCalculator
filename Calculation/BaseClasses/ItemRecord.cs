@@ -1,18 +1,30 @@
-﻿namespace Calculation.BaseClasses
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
+namespace Calculation.BaseClasses
 {
-    public  class ItemRecord
+    public  class ItemRecord : INotifyPropertyChanged
     {
         #region     Properties
-       // public virtual string Name { get; set; }
-        public virtual decimal Amount { get; set; }
+
+        private decimal _amount;
+        public virtual decimal Amount
+        {
+            get { return _amount; }
+            set { _amount = value; RaisePropertyChanged(); }
+        }
+
         #endregion
 
-        //#region Constructor
-        //public  ItemRecord(string ItemName)
-        //{
-        //    Name = ItemName;
-        //    Amount = 0.0M;
-        //}
-        //#endregion
+        #region INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        #endregion
+        
     }
 }
