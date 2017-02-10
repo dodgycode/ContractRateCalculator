@@ -1,6 +1,8 @@
-﻿namespace Calculation
+﻿using Calculation.BaseClasses;
+
+namespace Calculation
 {
-    public class TakeHome 
+    public class TakeHome : ItemRecord
     {
         #region Input Properties
 
@@ -18,6 +20,7 @@
             {
                 _dayRate = value;
                 GrossRevenue = _dayRate * WeeksWorked * 5;
+                RaisePropertyChanged();
             }
         }
 
@@ -37,6 +40,7 @@
                 GrossRevenue = DayRate * _weeksWorked * 5;
                 Expenses.SetMileage(MilesPerDay, _weeksWorked);
                 Expenses = Expenses;
+                RaisePropertyChanged();
             }
         }
 
@@ -56,6 +60,7 @@
                 Taxes.SetSalary(_salary);
                 Expenses.SetSalary(_salary);
                 Expenses = Expenses;
+                RaisePropertyChanged();
             }
         }
 
@@ -74,6 +79,7 @@
                 _pension = value;
                 Expenses.SetPension(_pension);
                 Expenses = Expenses;
+                RaisePropertyChanged();
             }
         }
 
@@ -92,6 +98,7 @@
                 _accountingFees = value;
                 Expenses.SetAccountingFees(_accountingFees);
                 Expenses = Expenses;
+                RaisePropertyChanged();
             }
         }
 
@@ -107,6 +114,7 @@
                 _milesPerDay = value;
                 Expenses.SetMileage(_milesPerDay, WeeksWorked);
                 Expenses = Expenses;
+                RaisePropertyChanged();
             }
         }
         #endregion
@@ -115,7 +123,7 @@
         private Taxes.Taxes Taxes { get; set; }
 
         private Expenses.Expenses _expenses;
-        private Expenses.Expenses Expenses
+        public Expenses.Expenses Expenses
         {
             get
             {
@@ -126,11 +134,12 @@
                 _expenses = value;
                 GrossDividends = GrossRevenue - _expenses.Amount;
                 MileageExpense = _expenses.GetMileageExpenseAmount();
+                RaisePropertyChanged();
             }
         }
        
         private decimal _grossDividends;
-        private decimal GrossDividends
+        public decimal GrossDividends
         {
             get
             {
@@ -140,6 +149,7 @@
             {
                 _grossDividends = value;
                 Taxes.SetGrossDividends(_grossDividends);
+                RaisePropertyChanged();
             }
         }
         #endregion
@@ -159,6 +169,7 @@
                 _grossRevenue = value;
                 Taxes.SetGrossRevenue(_grossRevenue);
                 GrossDividends = _grossRevenue - Expenses.Amount;
+                RaisePropertyChanged();
             }
         }
 
@@ -189,5 +200,6 @@
         }
         #endregion
 
+      
     }
 }
