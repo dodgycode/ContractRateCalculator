@@ -4,15 +4,33 @@
     {
         #region Properties
 
+        private decimal _totalIncludingPension;
         public decimal TotalIncludingPension
         {
-            get { return SharedModel.TotalIncludingPension; }
-            set { RaisePropertyChanged(); }
+            get
+            {
+                return _totalIncludingPension;
+            }
+            set
+            {
+                _totalIncludingPension = value;
+                TotalExcludingPension = _totalIncludingPension - SharedModel.Expenses.GetPensionAmount();
+                RaisePropertyChanged();
+            }
         }
+
+        private decimal _totalExcludingPension;
         public decimal TotalExcludingPension
         {
-            get { return SharedModel.TotalExcludingPension; }
-            set { RaisePropertyChanged(); }
+            get
+            {
+                return _totalExcludingPension;
+            }
+            set
+            {
+                _totalExcludingPension = value;
+                RaisePropertyChanged();
+            }
         }
 
         #endregion
@@ -26,17 +44,26 @@
 
         #endregion
 
+        #region Private methods
+
+        private void CalculateTotalIncludingPension()
+        {
+            TotalIncludingPension = SharedModel.GrossRevenue - SharedModel.Taxes.Amount;
+        }
+
+        #endregion
+
         #region Event handlers
 
         private void SharedModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
-                case "TotalIncludingPension":
-                    TotalIncludingPension = SharedModel.TotalIncludingPension;
-                    break;
-                case "TotalExcludingPension":
-                    TotalExcludingPension = SharedModel.TotalExcludingPension;
+                case "GrossRevenue":
+                case "Pension":
+                case "Taxes":
+                case "Expenses":
+                    CalculateTotalIncludingPension();
                     break;
             }
         }

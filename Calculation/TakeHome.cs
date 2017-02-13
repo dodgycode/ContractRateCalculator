@@ -120,8 +120,9 @@ namespace Calculation
         #endregion
 
         #region Utility properties
+
         private Taxes.Taxes _taxes;
-        private Taxes.Taxes Taxes
+        public Taxes.Taxes Taxes
         {
             get
             {
@@ -167,6 +168,7 @@ namespace Calculation
         #endregion
 
         #region Output properties
+
         private decimal _mileageExpense;
         public decimal MileageExpense
         {
@@ -190,47 +192,20 @@ namespace Calculation
                 _grossRevenue = value;
                 Taxes.SetGrossRevenue(_grossRevenue);
                 GrossDividends = _grossRevenue - Expenses.Amount;
-                TotalIncludingPension = _grossRevenue - Taxes.Amount;
                 RaisePropertyChanged();
             }
         }
 
-        private decimal _totalIncludingPension;
-        public decimal TotalIncludingPension
-        {
-            get
-            {
-                return _totalIncludingPension;
-            }
-            set
-            {
-                _totalIncludingPension = value;
-                TotalExcludingPension = _totalIncludingPension - Expenses.GetPensionAmount();
-                RaisePropertyChanged();
-            }
-        }
-
-        private decimal _totalExcludingPension;
-        public decimal TotalExcludingPension
-        {
-            get
-            {
-                return _totalExcludingPension ;
-            }
-            set
-            {
-                _totalExcludingPension = value;
-                RaisePropertyChanged();
-            }
-        }
         #endregion
 
         #region     Constructor
+
         public TakeHome()
         {
             Taxes = new Taxes.Taxes();
             Expenses = new Expenses.Expenses();
         }
+
         #endregion
 
       
