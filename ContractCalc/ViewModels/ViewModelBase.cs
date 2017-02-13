@@ -14,7 +14,7 @@ namespace ContractCalc.ViewModels
         {
             model = model ?? new TakeHome();
         }
-
+        
         #endregion
 
         #region Properties
@@ -29,7 +29,7 @@ namespace ContractCalc.ViewModels
         #region INotifyPropertyChanged
 
         public event PropertyChangedEventHandler PropertyChanged;
-        protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        protected  void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

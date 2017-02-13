@@ -119,8 +119,20 @@ namespace Calculation
         }
         #endregion
 
-        #region Private properties
-        private Taxes.Taxes Taxes { get; set; }
+        #region Utility properties
+        private Taxes.Taxes _taxes;
+        private Taxes.Taxes Taxes
+        {
+            get
+            {
+                return _taxes;
+            }
+            set
+            {
+                _taxes = value;
+                RaisePropertyChanged();
+            }
+        }
 
         private Expenses.Expenses _expenses;
         public Expenses.Expenses Expenses
@@ -155,7 +167,16 @@ namespace Calculation
         #endregion
 
         #region Output properties
-        public decimal MileageExpense { get; set; }
+        private decimal _mileageExpense;
+        public decimal MileageExpense
+        {
+            get
+            { return _mileageExpense; }
+            set {
+                _mileageExpense = value;
+                RaisePropertyChanged();
+            }
+        }
 
         private decimal _grossRevenue;
         public decimal GrossRevenue
@@ -169,25 +190,37 @@ namespace Calculation
                 _grossRevenue = value;
                 Taxes.SetGrossRevenue(_grossRevenue);
                 GrossDividends = _grossRevenue - Expenses.Amount;
+                TotalIncludingPension = _grossRevenue - Taxes.Amount;
                 RaisePropertyChanged();
             }
         }
 
+        private decimal _totalIncludingPension;
         public decimal TotalIncludingPension
         {
             get
             {
-                return GrossRevenue -
-                    Taxes.Amount;
+                return _totalIncludingPension;
+            }
+            set
+            {
+                _totalIncludingPension = value;
+                TotalExcludingPension = _totalIncludingPension - Expenses.GetPensionAmount();
+                RaisePropertyChanged();
             }
         }
 
+        private decimal _totalExcludingPension;
         public decimal TotalExcludingPension
         {
             get
             {
-                return TotalIncludingPension -
-                    Expenses.GetPensionAmount() ;
+                return _totalExcludingPension ;
+            }
+            set
+            {
+                _totalExcludingPension = value;
+                RaisePropertyChanged();
             }
         }
         #endregion

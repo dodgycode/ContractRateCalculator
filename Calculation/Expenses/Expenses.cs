@@ -4,7 +4,6 @@ namespace Calculation.Expenses
 {
     public class Expenses : ItemRecord
     {
-
         #region Properties
         private Accounting AccountingExpense { get; set; }
         private Mileage MileageExpense { get; set; }

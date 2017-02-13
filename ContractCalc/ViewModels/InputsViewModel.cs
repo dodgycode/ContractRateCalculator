@@ -1,4 +1,6 @@
-﻿namespace ContractCalc.ViewModels
+﻿using System.ComponentModel;
+
+namespace ContractCalc.ViewModels
 {
     public class InputsViewModel : ViewModelBase
     {
@@ -130,7 +132,7 @@
                 RaisePropertyChanged();
             }
         }
-
+        
         public double MileageExpense { get { return (double)SharedModel.MileageExpense; } }
 
         #endregion
@@ -139,7 +141,7 @@
 
         private void CalculateMaxSalary()
         {
-            MaxSalary = GrossRevenue - (double)SharedModel.AccountingFees - (double)SharedModel.MileageExpense;
+          MaxSalary = GrossRevenue - (double)SharedModel.AccountingFees - (double)SharedModel.MileageExpense;
         }
 
         private void SetStartingValues()
@@ -152,7 +154,7 @@
             AccountingFees = 1200;
             MilesPerDay = 35;
         }
-
+        
         #endregion
 
 
