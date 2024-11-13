@@ -1,4 +1,4 @@
-# Contractor Take Home Calculator
+# UK Contractor Take Home Calculator
 Calculate your take home pay and find your optimal salary/dividend split!
 
 ## Features
